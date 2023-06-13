@@ -63,3 +63,14 @@ User Story: As a user I should be able to have an option to view the data (wheth
 Scenario 1: Show a chart with the number of upcoming events in each city
 
 Given the user has not selected a city -> When the user wants to see how many events are in which city -> Then they should be able to view the information in a chart or graph that displays the number of events in the chosen cities
+
+## How this application will use serverless functions
+Feature 1: The application will require event filtering and this will be done with serverless functions. A large benefit to this would be the reduced code in the lambda functions. It will process the filtering on the backend, which activates from the frontend. It will be able to retrieve the list of events and sort by city and then return the list to the frontend.
+
+Feature 2: N/A
+
+Feature 3: The feature for specifying the number of events will be derivative of feature 1 where it will return the number of events from the filtered list.
+
+Feature 4: The application will use data caching and local storage to allow the app to be used offline.
+
+Feature 5: Using the data from feature 1, the application will use serverless functions to create chart and graph data. When requested from the frontend, the function triggers and fetches data from the API and returns the filtered data back.
