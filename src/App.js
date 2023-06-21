@@ -11,6 +11,7 @@ class App extends Component {
   state = {
     events: [],
     locations: [],
+    eventCount: 32,
   };
 
   render() {
@@ -18,19 +19,20 @@ class App extends Component {
       <div className="App">
         <CitySearch locations={this.state.locations} updateEvents={this.updateEvents}/>
         <EventList events={this.state.events}/>
-        <NumberOfEvents />
+        <NumberOfEvents updateEvents={this.updateEvents} eventCount={this.state.eventCount}/>
       </div>
     );
   }
 
-  updateEvents = (location) => {
-    
+  updateEvents = (location, eventCount) => {
+    location = location || 'all';
     getEvents().then((events) => {
       const locationEvents = (location === 'all') ?
         events :
-        events.filter((event) => event.location ===location);
+        events.filter((event) => event.location === location);
       this.setState({
-        events: locationEvents
+        events: locationEvents.slice(0, eventCount),
+        event: eventCount
       });
     });
   }
