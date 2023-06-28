@@ -42,7 +42,7 @@ Given the user has not specified a number -> When the user has selected a city -
 
 Scenario 2: User can change the number of events they want to see
 
-Given the user has selected a city and 32 events are shown -> When the user wants to change how many events they want to view -> then the user should be able to change how many events are displayed
+Given the user has selected a city and 32 events are shown -> When the user wants to change how many events they want to view -> Then the user should be able to change how many events are displayed
 
 ## Feature 4: Use The App When Offline
 
