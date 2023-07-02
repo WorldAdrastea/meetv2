@@ -4,6 +4,7 @@ import EventList from './EventList';
 import CitySearch from './CitySearch';
 import NumberOfEvents from './NumberOfEvents';
 import { extractLocations, getEvents } from './api';
+import { InfoAlert, ErrorAlert } from './Alerts';
 
 
 
@@ -12,14 +13,21 @@ class App extends Component {
     events: [],
     locations: [],
     eventCount: 32,
+    infoAlert: [],
+    errorAlert: [],
   };
 
   render() {
     return (
       <div className="App">
+        <div className="alerts-container">
+          <InfoAlert text={this.state.infoAlert.join(' ')}/>
+          <ErrorAlert text={this.state.errorAlert.join(' ')}/>
+          <br />
+        </div>
         <CitySearch locations={this.state.locations} updateEvents={this.updateEvents}/>
         <EventList events={this.state.events}/>
-        <NumberOfEvents updateEvents={this.updateEvents} eventCount={this.state.eventCount}/>
+        <NumberOfEvents updateEvents={this.updateEvents} eventCount={this.state.eventCount} errorAlert={this.state.errorAlert}/>
       </div>
     );
   }

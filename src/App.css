@@ -211,3 +211,10 @@ input[type="number"] {
     margin: 0 auto;
   }
 }
+
+.alerts-container {
+  display: flex;
+  justify-content: center;
+  padding-bottom: 50px;
+  z-index: 1000;
+}

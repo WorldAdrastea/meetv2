@@ -1,8 +1,10 @@
 import React, { Component } from "react";
+import { ErrorAlert } from "./Alerts";
 
 class NumberOfEvents extends Component {
     state = {
         query: 32,
+        errorAlert: '',
     }
     
     handleInputChanged = (event) => {
@@ -10,12 +12,14 @@ class NumberOfEvents extends Component {
         if (inputValue >= 1 || inputValue <= 32) {
             this.setState({ 
                 query: inputValue,
+                errorAlert: '',
             });
 
         this.props.updateEvents(undefined, inputValue)
-    } if (inputValue < 1 || inputValue > 32) {
+    } else {
         this.setState({
-          query: inputValue,
+            query: inputValue,
+            errorAlert: 'Please enter a positive number of events.',
         });
       }
     };
@@ -23,6 +27,7 @@ class NumberOfEvents extends Component {
     render() {
         return (
             <div className="numberofevents">
+                {this.state.errorAlert !== '' && <ErrorAlert text={this.state.errorAlert}/>}
                 <label className="numberofeventslabel">Number of Events: </label>
                 <input 
                     type="number"
