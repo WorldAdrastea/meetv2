@@ -4,7 +4,7 @@ import EventList from './EventList';
 import CitySearch from './CitySearch';
 import NumberOfEvents from './NumberOfEvents';
 import { extractLocations, getEvents } from './api';
-import {ErrorAlert } from './Alerts';
+import { WarningAlert, ErrorAlert } from './Alerts';
 
 
 
@@ -15,14 +15,16 @@ class App extends Component {
     eventCount: 32,
     infoAlert: '',
     errorAlert: '',
+    warningAlert: '',
   };
 
   render() {
-    console.log(this.state.errorAlert.length);
     const errorMessage = this.state.errorAlert;
+    const warningMessage = this.state.warningAlert;
     return (
       <div className="App">
         <div className="alerts-container">
+          {warningMessage > 0 && <WarningAlert text={this.state.warningAlert}/>}
           {errorMessage > 0 && <ErrorAlert text={this.state.errorAlert}/>}
         </div>
         <CitySearch locations={this.state.locations} updateEvents={this.updateEvents}/>
@@ -43,6 +45,16 @@ class App extends Component {
         eventCount: eventCount
       });
     });
+
+    if (!navigator.onLine) {
+      this.setState({
+        warningAlert: "You are currently offline."
+      });
+    } else {
+      this.setState({
+        warningAlert: ''
+      });
+    }
   }
 
   componentDidMount() {
