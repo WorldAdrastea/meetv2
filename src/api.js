@@ -54,6 +54,13 @@ export const checkToken = async (accessToken) => {
       NProgress.done();
       return mockData;
     }
+
+    //Access local storage when user is offline
+    if (!navigator.onLine) {
+      const events = localStorage.getItem("lastEvents");
+      NProgress.done();
+      return events ? JSON.parse(events).events : [];
+    }
   
     const token = await getAccessToken();
   
