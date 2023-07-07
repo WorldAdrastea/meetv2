@@ -23,7 +23,8 @@ class Alert extends Component {
             textAlign: "center",
             fontSize: "12px",
             margin: "10px 0",
-            padding: "10px"
+            padding: "10px",
+            display: "block",
         };
     }
 
