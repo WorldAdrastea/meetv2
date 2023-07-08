@@ -25,6 +25,7 @@ class Alert extends Component {
             margin: "10px 0",
             padding: "10px",
             display: "block",
+            zIndex: 9999, //Brings alerts to the front
         };
     }
 
