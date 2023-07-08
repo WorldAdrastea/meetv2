@@ -18,21 +18,36 @@ class App extends Component {
     warningAlert: '',
   };
 
-  render() {
-    const errorMessage = this.state.errorAlert;
-    const warningMessage = this.state.warningAlert;
-    return (
-      <div className="App">
-        <div className="alerts-container">
-          {warningMessage > 0 && <WarningAlert text={this.state.warningAlert}/>}
-          {errorMessage > 0 && <ErrorAlert text={this.state.errorAlert}/>}
-        </div>
-        <CitySearch locations={this.state.locations} updateEvents={this.updateEvents}/>
-        <EventList events={this.state.events}/>
-        <NumberOfEvents updateEvents={this.updateEvents} eventCount={this.state.eventCount} errorAlert={this.state.errorAlert}/>
-      </div>
-    );
+  componentDidMount() {
+    this.mounted = true;
+    getEvents().then((events) => {
+      if (this.mounted) {
+        this.setState({ events, locations: extractLocations(events) });
+      }
+    });
+
+    window.addEventListener('offline', this.handleOffline);
+    window.addEventListener('online', this.handleOnline);
   }
+
+  componentWillUnmount() {
+    this.mounted = false;
+
+    window.removeEventListener('offline', this.handleOffline);
+    window.removeEventListener('online', this.handleOnline);
+  }
+  
+  handleOffline = () => {
+    this.setState({
+      warningAlert: "You are currently offline."
+    });
+  };
+
+  handleOnline = () => {
+    this.setState({
+      warningAlert: ''
+    });
+  };
 
   updateEvents = (location, eventCount) => {
     location = location || 'all';
@@ -45,29 +60,22 @@ class App extends Component {
         eventCount: eventCount
       });
     });
-
-    if (!navigator.onLine) {
-      this.setState({
-        warningAlert: "You are currently offline."
-      });
-    } else {
-      this.setState({
-        warningAlert: ''
-      });
-    }
   }
 
-  componentDidMount() {
-    this.mounted = true;
-    getEvents().then((events) => {
-      if (this.mounted) {
-        this.setState({ events, locations: extractLocations(events) });
-      }
-    });
-  }
-
-  componentWillUnmount(){
-    this.mounted = false;
+  render() {
+    const errorMessage = this.state.errorAlert;
+    const warningMessage = this.state.warningAlert;
+    return (
+      <div className="App">
+        <div className="alerts-container">
+          {warningMessage.length > 0 && <WarningAlert text={this.state.warningAlert}/>}
+          {errorMessage > 0 && <ErrorAlert text={this.state.errorAlert}/>}
+        </div>
+        <CitySearch locations={this.state.locations} updateEvents={this.updateEvents}/>
+        <EventList events={this.state.events}/>
+        <NumberOfEvents updateEvents={this.updateEvents} eventCount={this.state.eventCount} errorAlert={this.state.errorAlert}/>
+      </div>
+    );
   }
 }
 
