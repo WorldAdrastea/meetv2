@@ -5,6 +5,7 @@ import CitySearch from './CitySearch';
 import NumberOfEvents from './NumberOfEvents';
 import { extractLocations, getEvents } from './api';
 import { WarningAlert, ErrorAlert } from './Alerts';
+import CityEventsChart from './CityEventsChart';
 
 
 
@@ -72,6 +73,7 @@ class App extends Component {
           {errorMessage > 0 && <ErrorAlert text={this.state.errorAlert}/>}
         </div>
         <CitySearch locations={this.state.locations} updateEvents={this.updateEvents}/>
+        <CityEventsChart locations={this.state.locations} events={this.state.events}/>
         <EventList events={this.state.events}/>
         <NumberOfEvents updateEvents={this.updateEvents} eventCount={this.state.eventCount} errorAlert={this.state.errorAlert}/>
       </div>
