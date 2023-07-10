@@ -1,6 +1,5 @@
-import { render } from 'nprogress';
 import React, { useState, useEffect } from 'react';
-import { ResponsiveContainer, PieChart, Pie, Legend } from 'recharts';
+import { ResponsiveContainer, PieChart, Pie, Legend, Cell } from 'recharts';
 
 const EventsGenreChart = ({ events }) => {
     const genres = ['React', 'JavaScript', 'Node', 'jQuery', 'Angular'];
