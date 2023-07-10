@@ -21,6 +21,8 @@ const EventsGenreChart = ({ events }) => {
         setData(getData());
     }, [events]);
 
+    const colors = ['#DD0000', '#00DD00', '#0000DD', '#DDDD00', '#DD00DD'];
+
     const renderCustomizedLabel = ({ cx, cy, midAngle, outerRadius, percent, index }) => {
         const RADIAN = Math.PI / 180;
         const radius = outerRadius;
@@ -49,7 +51,12 @@ const EventsGenreChart = ({ events }) => {
                 labelLine={false}
                 label={renderCustomizedLabel}
                 outerRadius={130}           
-                />
+                >
+                {data.map((entry, index) => (
+                    <Cell key={`cell-${index}`} fill={colors[index % colors.length]} />
+                ))}
+                </Pie>
+                <Legend verticalAlign="top" align="center" />
             </PieChart>
         </ResponsiveContainer>
       );
