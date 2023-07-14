@@ -74,3 +74,7 @@ Feature 3: The feature for specifying the number of events will be derivative of
 Feature 4: The application will use data caching and local storage to allow the app to be used offline.
 
 Feature 5: Using the data from feature 1, the application will use serverless functions to create chart and graph data. When requested from the frontend, the function triggers and fetches data from the API and returns the filtered data back.
+
+## How to start the project locally
+
+After cloning the repo from the Github, run `npm install` to install all dependencies. You can then login to the app using a google account - please send me a request to add to Google Cloud Console if app is blocked.
